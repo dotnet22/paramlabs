@@ -20,10 +20,10 @@
     "allowImportingTsExtensions": true,
     "baseUrl": "./src",
     "paths": {
-      "*": ["*"]
+      "components/*": ["components/*"]
     },
     "sourceMap": true
-  },
-  "include": ["src/**/*"],
-  "exclude": ["**/*.spec.ts"]
+  }
+  //"include": ["src/**/*"],
+  //"exclude": ["**/*.spec.ts"]
 }

@@ -6,12 +6,14 @@ import typescript from "@rollup/plugin-typescript";
 import external from "rollup-plugin-peer-deps-external";
 import dts from "rollup-plugin-dts";
 import typescriptEngine from "typescript";
+import babel from "@rollup/plugin-babel";
+import replace from "@rollup/plugin-replace";
 
 const packageJson = JSON.parse(readFileSync("./package.json"));
 
 export default defineConfig(
   {
-    input: "./src/index.ts",
+    input: ["./src/index.ts"],
     output: [
       {
         file: packageJson.main,
@@ -28,6 +30,16 @@ export default defineConfig(
       },
     ],
     plugins: [
+      babel({
+        babelHelpers: "bundled",
+        presets: ["@babel/env", "@babel/preset-react"],
+        extensions: [".ts", ".tsx"],
+        exclude: "node_modules/**",
+      }),
+      replace({
+        preventAssignment: false,
+        "process.env.NODE_ENV": '"development"',
+      }),
       external({ includeDependencies: true }),
       resolve(),
       commonjs(),
@@ -57,6 +69,7 @@ export default defineConfig(
           "vitest.config.ts",
         ],
       }),
+      //dts()
     ],
   },
   {

@@ -1,1 +1,1 @@
-export type { Message } from "./Message";
+export * from "./components";
